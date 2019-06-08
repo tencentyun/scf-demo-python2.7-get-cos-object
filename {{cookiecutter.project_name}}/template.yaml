@@ -1,0 +1,32 @@
+Resources:
+  default:
+    Type: TencentCloud::Serverless::Namespace
+    get_cos_object:
+      Type: TencentCloud::Serverless::Function
+      Properties:
+        CodeUri: ./get_cos_object
+        Description: This demo need to config COS trigger. When object has been upload to COS bucket, the SCF will download it to /tmp.
+        Environment:
+          Variables:
+            ENV_FIRST: env1
+            ENV_SECOND: env2
+        Handler: Get_COS_Object.main_handler
+        MemorySize: 128
+        {%- if cookiecutter.runtime == 'Python2.7' %}
+        Runtime: Python2.7
+        {%- elif cookiecutter.runtime == 'Python3.6' %}
+        Runtime: Python3.6
+        {%- else %}
+        Runtime: Python3.6
+        {%- endif %}
+        Timeout: 5
+          mycosbucket.cos.ap-guangzhou.myqcloud.com: # full bucket name
+            Type: COS
+            Properties:
+              Filter:
+              Events: cos:ObjectCreated:*
+              Enable: OPEN
+
+Globals:
+  Function:
+    Timeout: 10
