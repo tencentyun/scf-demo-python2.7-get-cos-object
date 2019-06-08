@@ -20,6 +20,7 @@ Resources:
         Runtime: Python3.6
         {%- endif %}
         Timeout: 5
+        Events:
           mycosbucket.cos.ap-guangzhou.myqcloud.com: # full bucket name
             Type: COS
             Properties:
