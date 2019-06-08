@@ -25,6 +25,8 @@ Resources:
             Type: COS
             Properties:
               Filter:
+                Prefix: ""
+                Suffix: ""
               Events: cos:ObjectCreated:*
               Enable: OPEN
 
